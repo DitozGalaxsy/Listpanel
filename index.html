@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Pterodactyl - DITOZZ GALAXY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset dan styling dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0c0c2e 0%, #000000 100%);
+            padding: 20px;
+        }
+        
+        /* Container utama */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            z-index: 10;
+            position: relative;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #6a5af9;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(106, 90, 249, 0.5);
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(106, 90, 249, 0.8);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #6a5af9, #8b7aff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Info Panel */
+        .panel-info {
+            background: rgba(106, 90, 249, 0.1);
+            border: 2px solid rgba(106, 90, 249, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.8s ease;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .info-item {
+            padding: 15px;
+        }
+        
+        .info-icon {
+            font-size: 2.5rem;
+            color: #6a5af9;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(106, 90, 249, 0.5);
+        }
+        
+        .info-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Grid Produk RAM */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            background: rgba(106, 90, 249, 0.05);
+            border: 2px solid rgba(106, 90, 249, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.8s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(106, 90, 249, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .product-card:hover::before {
+            left: 100%;
+        }
+        
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+        .product-card:nth-child(6) { animation-delay: 0.6s; }
+        .product-card:nth-child(7) { animation-delay: 0.7s; }
+        .product-card:nth-child(8) { animation-delay: 0.8s; }
+        .product-card:nth-child(9) { animation-delay: 0.9s; }
+        .product-card:nth-child(10) { animation-delay: 1.0s; }
+        .product-card:nth-child(11) { animation-delay: 1.1s; }
+        .product-card:nth-child(12) { animation-delay: 1.2s; }
+        
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(106, 90, 249, 0.5);
+            box-shadow: 0 15px 35px rgba(106, 90, 249, 0.3);
+            background: rgba(106, 90, 249, 0.08);
+        }
+        
+        .ram-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #6a5af9, #8b7aff);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(106, 90, 249, 0.5);
+            box-shadow: 0 4px 15px rgba(106, 90, 249, 0.3);
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #6a5af9;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(106, 90, 249, 0.5);
+        }
+        
+        .product-features {
+            list-style: none;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .product-features li {
+            padding: 8px 0;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            padding-left: 25px;
+            font-size: 0.9rem;
+        }
+        
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #6a5af9;
+            font-weight: bold;
+        }
+        
+        .product-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #6a5af9, #8b7aff);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(106, 90, 249, 0.3);
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .product-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(106, 90, 249, 0.5);
+            background: linear-gradient(45deg, #8b7aff, #6a5af9);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(106, 90, 249, 0.2);
+            margin-top: 50px;
+            animation: fadeIn 1s ease 1.2s both;
+        }
+        
+        .footer-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 10px;
+        }
+        
+        /* Styling untuk bintang berjatuhan */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            from {
+                transform: translateY(-100px) translateX(-50px) rotate(0deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Efek partikel bintang diam */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .product-card {
+                padding: 20px 15px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ram-badge {
+                font-size: 1rem;
+            }
+            
+            .product-price {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bintang Berjatuhan -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Partikel Bintang Diam -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Container Utama -->
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="https://c.top4top.io/p_3607jey771.jpg" alt="DITOZZ GALAXY" onerror="this.src='https://via.placeholder.com/120x120/000000/FFFFFF?text=DITOZZ'">
+            </div>
+            <h1 class="title">PANEL PTERODACTYL</h1>
+            <p class="subtitle">Panel server terbaik dengan berbagai pilihan RAM sesuai kebutuhan Anda</p>
+        </div>
+        
+        <!-- Info Panel -->
+        <div class="panel-info">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="info-text">High Performance</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="info-text">Secure & Stable</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="info-text">24/7 Support</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="info-text">Instant Setup</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Grid Produk RAM -->
+        <div class="products-grid">
+            <!-- RAM 1GB -->
+            <div class="product-card">
+                <div class="ram-badge">RAM 1GB</div>
+                <div class="product-price">Rp1.000</div>
+                <ul class="product-features">
+                    <li>1GB DDR4 Memory</li>
+                    <li>1 Core CPU</li>
+                    <li>10GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                </ul>
+                <a href="https://wa.link/sn224w" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- RAM 2GB -->
+            <div class="product-card">
+                <div class="ram-badge">RAM 2GB</div>
+                <div class="product-price">Rp2.000</div>
+                <ul class="product-features">
+                    <li>2GB DDR4 Memory</li>
+                    <li>1 Core CPU</li>
+                    <li>20GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                </ul>
+                <a href="https://wa.link/w8ss15" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- RAM 3GB -->
+            <div class="product-card">
+                <div class="ram-badge">RAM 3GB</div>
+                <div class="product-price">Rp3.000</div>
+                <ul class="product-features">
+                    <li>3GB DDR4 Memory</li>
+                    <li>2 Core CPU</li>
+                    <li>30GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                </ul>
+                <a href="https://wa.link/7aihrw" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- RAM 4GB -->
+            <div class="product-card">
+                <div class="ram-badge">RAM 4GB</div>
+                <div class="product-price">Rp4.000</div>
+                <ul class="product-features">
+                    <li>4GB DDR4 Memory</li>
+                    <li>2 Core CPU</li>
+                    <li>40GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                </ul>
+                <a href="https://wa.link/75m4b3" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- RAM 5GB -->
+            <div class="product-card">
+                <div class="ram-badge">RAM 5GB</div>
+                <div class="product-price">Rp5.000</div>
+                <ul class="product-features">
+                    <li>5GB DDR4 Memory</li>
+                    <li>2 Core CPU</li>
+                    <li>50GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                </ul>
+                <a href="https://wa.link/mpz6vj" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- RAM 6GB -->
+            <div class="product-card">
+                <div class="ram-badge">RAM 6GB</div>
+                <div class="product-price">Rp6.000</div>
+                <ul class="product-features">
+                    <li>6GB DDR4 Memory</li>
+                    <li>3 Core CPU</li>
+                    <li>60GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                </ul>
+                <a href="https://wa.link/0uj6hy" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- RAM 7GB -->
+            <div class="product-card">
+                <div class="ram-badge">RAM 7GB</div>
+                <div class="product-price">Rp7.000</div>
+                <ul class="product-features">
+                    <li>7GB DDR4 Memory</li>
+                    <li>3 Core CPU</li>
+                    <li>70GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                </ul>
+                <a href="https://wa.link/4w6pe8" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- RAM 8GB -->
+            <div class="product-card">
+                <div class="ram-badge">RAM 8GB</div>
+                <div class="product-price">Rp8.000</div>
+                <ul class="product-features">
+                    <li>8GB DDR4 Memory</li>
+                    <li>4 Core CPU</li>
+                    <li>80GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                </ul>
+                <a href="https://wa.link/dx4p30" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- RAM 9GB -->
+            <div class="product-card">
+                <div class="ram-badge">RAM 9GB</div>
+                <div class="product-price">Rp9.000</div>
+                <ul class="product-features">
+                    <li>9GB DDR4 Memory</li>
+                    <li>4 Core CPU</li>
+                    <li>90GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                </ul>
+                <a href="https://wa.link/9j01qs" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- RAM 10GB -->
+            <div class="product-card">
+                <div class="ram-badge">RAM 10GB</div>
+                <div class="product-price">Rp10.000</div>
+                <ul class="product-features">
+                    <li>10GB DDR4 Memory</li>
+                    <li>4 Core CPU</li>
+                    <li>100GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                </ul>
+                <a href="https://wa.link/kucep0" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- RAM UNLIMITED -->
+            <div class="product-card">
+                <div class="ram-badge">RAM UNLIMITED</div>
+                <div class="product-price">Rp11.000</div>
+                <ul class="product-features">
+                    <li>Unlimited DDR4 Memory</li>
+                    <li>8 Core CPU</li>
+                    <li>500GB SSD Storage</li>
+                    <li>Unlimited Bandwidth</li>
+                    <li>Priority Support</li>
+                </ul>
+                <a href="https://wa.link/7wqp80" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+            
+            <!-- ADMIN PANEL -->
+            <div class="product-card">
+                <div class="ram-badge">ADMIN PANEL</div>
+                <div class="product-price">Rp15.000</div>
+                <ul class="product-features">
+                    <li>Full Admin Access</li>
+                    <li>User Management</li>
+                    <li>Server Monitoring</li>
+                    <li>Advanced Settings</li>
+                    <li>Priority Support 24/7</li>
+                </ul>
+                <a href="https://wa.link/5o0t5b" class="product-btn" target="_blank">
+                    Pesan Sekarang
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p class="footer-text">DITOZZ GALAXY &copy; 2023 - Panel Pterodactyl</p>
+            <p class="footer-text">Garansi 100% uptime dan support 24/7</p>
+        </div>
+    </div>
+    
+    <script>
+        // Fungsi untuk membuat bintang berjatuhan
+    
